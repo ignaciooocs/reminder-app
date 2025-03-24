@@ -1,0 +1,13 @@
+FROM postgres:14
+
+# Instalar las dependencias necesarias
+RUN apt-get update && apt-get install -y \
+    postgresql-contrib \
+    && apt-get clean
+
+# Instalar pg_cron
+RUN apt-get install -y postgresql-14-cron  
+# Ajusta según la versión de PostgreSQL que estés utilizando
+
+# Establecer el archivo de configuración adecuado
+RUN echo "shared_preload_libraries = 'pg_cron'" >> /usr/share/postgresql/postgresql.conf.sample
