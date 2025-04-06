@@ -9,10 +9,10 @@ export class Reminder {
   @Column()
   message: string;
 
-  @Column()
+  @Column({ type: 'timestamp', nullable: false })
   notifyAt: Date; // Fecha y hora en la que debe ocurrir el evento
 
-  @Column({ default: 10 }) 
+  @Column({ default: 10, nullable: true }) 
   remindBefore: number; // Minutos antes para notificar
 
   @Column({ default: false })

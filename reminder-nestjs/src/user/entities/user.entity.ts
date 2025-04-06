@@ -1,3 +1,4 @@
+import { ExpoToken } from 'src/expo-token/entities/expo-token.entity';
 import { Reminder } from 'src/reminder/entities/reminder.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
 
@@ -15,8 +16,8 @@ export class User {
     @Column({})
     password: string;
 
-    @Column('text', { array: true, nullable: true })
-    expoTokens: string[]; // Almacena los Expo Push Tokens
+    @OneToMany(() => ExpoToken, (expoToken) => expoToken.user)
+    expoTokens: ExpoToken[];
     
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date;
