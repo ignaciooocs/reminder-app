@@ -15,7 +15,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.ignacioocode.reminderexpo"
     },
     "web": {
       "bundler": "metro",
@@ -36,6 +37,21 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/1bcc6925-039e-49a1-acde-5bcf983f2588"
+    },
+    "owner": "ignacioocode",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "1bcc6925-039e-49a1-acde-5bcf983f2588"
+      }
     }
   }
 }
