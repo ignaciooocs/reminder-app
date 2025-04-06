@@ -5,5 +5,5 @@ export class CreateReminderDto {
     remindBefore: number;
     notified: boolean;
     readyToNotify: boolean;
-
+    afterMinutes: number;
 }

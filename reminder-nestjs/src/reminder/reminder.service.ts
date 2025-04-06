@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Reminder } from './entities/reminder.entity';
 import { Repository } from 'typeorm';
 import { UserService } from 'src/user/user.service';
+import * as moment from 'moment-timezone';
 
 @Injectable()
 export class ReminderService {
@@ -13,6 +14,14 @@ export class ReminderService {
     @InjectRepository(Reminder) private readonly reminderRepository: Repository<Reminder>,
     private readonly userService: UserService
   ) {}
+
+  // Función para convertir una marca de tiempo UTC a la hora local de Santiago de Chile
+  private convertToSantiagoTime(utcTime: Date): string {
+    const localTime = moment(utcTime).tz('America/Santiago');
+    localTime.seconds(0); // Establecer los segundos a cero
+    return localTime.format('YYYY-MM-DD HH:mm:ss');
+  }
+
   async create(createReminderDto: CreateReminderDto) {
     
     try {
@@ -22,11 +31,13 @@ export class ReminderService {
         throw new Error('User not found');
       }
 
-      const notifyAt = new Date(Date.now() + 5 * 60 * 1000);
+      const notifyAt = new Date(Date.now() + createReminderDto.afterMinutes * 60 * 1000);
+      const localTime = this.convertToSantiagoTime(notifyAt);
+      console.log(localTime);
 
       const reminder = this.reminderRepository.create({
         message: createReminderDto.message,
-        notifyAt,
+        notifyAt: localTime,
         user
       });
 
